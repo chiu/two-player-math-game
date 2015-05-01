@@ -8,9 +8,9 @@
 
 def value_generator
   #prng = random seed
-  prng = Random.new
-  @a = prng.rand(1..20)
-  @b = prng.rand(1..20)
+
+  @a = rand(1..20)
+  @b = rand(1..20)
 
 end
 
