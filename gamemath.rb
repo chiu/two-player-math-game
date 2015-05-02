@@ -6,17 +6,27 @@
 @player1life = 3
 @player2life = 3
 
-def value_generator
-  #prng = random seed
 
-  @a = rand(1..20)
-  @b = rand(1..20)
+player_data = [
+  {
+    name: "Player 1",   
+    hp: 3,
+    },
 
-end
+    {
+      name: "Player 2",   
+      hp: 3,
+      },
+    ]
 
-def generate_question
-  #puts "game version 1 test start"
-  puts "What does #{@a} + #{@b} equal?"
+    def value_generator
+      @a = rand(1..20)
+      @b = rand(1..20)
+    end
+
+    def generate_question
+#puts "game version 1 test start"
+puts "What does #{@a} + #{@b} equal?"
 end
 
 def prompt_player_for_answer
@@ -27,21 +37,25 @@ end
 
 
 def verify_answer(user_answer_argument)
- correct_answer = @a + @b
- print "correct answer is #{correct_answer}; "
+  correct_answer = @a + @b
+  print "correct answer is #{correct_answer}; "
 
- if correct_answer == user_answer_argument
-  puts "so you got it right!"
-  return true
-else
-  puts "so got it wrong."
-  return false
+  if correct_answer == user_answer_argument
+    puts "so you got it right!"
+    return true
+  else
+    puts "so got it wrong."
+    return false
+  end
+
 end
 
+
+def one_turn
+
+
+
 end
-
-
-
 
 
 while @player1life != 0 && @player2life != 0
@@ -55,7 +69,7 @@ while @player1life != 0 && @player2life != 0
   else
     @player1life = @player1life -1 
   end
- 
+
 
 
   print "player 2 turn: "

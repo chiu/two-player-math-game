@@ -15,6 +15,16 @@ puts "I am a super coder".yellow
 	{name: "Player 2", hp: 3,	score: 0,}
 ]
 
+def populate_game
+	@first_number = 1
+	@second_number = 2
+	@operator = '+'
+	@player_data = [
+		{name: "Player 1", hp: 3, score: 0,},
+		{name: "Player 2", hp: 3,	score: 0,}
+	]
+end
+
 def reset_game
 	@first_number = 1
 	@second_number = 2
