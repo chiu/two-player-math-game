@@ -1,24 +1,39 @@
-#game.rb
-def reset_game
-  @first_number = 1
-  @second_number = 2
-  @operator = '+'
-  @player_data.each { |player|
-    player[:hp] = 3
-    player[:score] = 0 
-  }
+require_relative 'contestant'
+require 'colorize'
+
+def one_turn(contestant_number, contestant_roster)
+
+ current_contestant = contestant_roster[contestant_number]
+ #puts current_contestant.inspect
+ current_contestant.say_hi
+ randomize_operator
+ randomize_value
+ puts generate_question
+ user_reply = prompt_player_for_answer
+
+ #current_contestant.print_info
+    
+  # # #player loses health when they get answer wrong
+  current_contestant.lose_life unless verify_answer(user_reply)
+  # # #player increments score by 1 if right
+  current_contestant.gain_score if verify_answer(user_reply)
+  # # #if good result prints in green otherwise red
+  #current_contestant.print_info
+  puts verify_answer(user_reply) ? current_contestant.player_status.green : current_contestant.player_status.red
 end
+
+
 
 def populate_game
   @first_number = 1
   @second_number = 2
   @operator = '+'
-  @player_data = [
-    {name: "Player 1", hp: 3, score: 0,},
-    {name: "Player 2", hp: 3, score: 0,}
-  ]
+  contestant_1 = Contestant.new(0, 'Alpha guy', 3, 0)
+  contestant_2 = Contestant.new(1, 'Beta guy', 3, 0)
+  @player_data = [contestant_1, contestant_2]
+  #puts @player_data.inspect
+  return @player_data 
 end
-
 
 def randomize_operator
   some_random_number = rand(1..4)
@@ -72,68 +87,68 @@ end
 
 
 
-def string_status_message(player_number)
-  "#{@player_data[player_number][:name]} | HP: #{@player_data[player_number][:hp]} | score: #{@player_data[player_number][:score]}"
+
+# def string_status_message(player_number)
+#   "#{@player_data[player_number][:name]} | HP: #{@player_data[player_number][:hp]} | score: #{@player_data[player_number][:score]}"
+# end
+
+def game_continue?(contestant_roster)
+  contestant_roster[0].hp != 0 && contestant_roster[1].hp !=0 
 end
 
-def game_continue?
-  @player_data[0][:hp] != 0 && @player_data[1][:hp] !=0 
-end
-
-def one_battle
+def one_battle(contestant_roster)
   duel_counter = 2
-  while game_continue? 
-    duel_counter % 2 == 0 ? one_turn(0) : one_turn(1)
+  while game_continue?(contestant_roster)
+    duel_counter % 2 == 0 ? one_turn(0, contestant_roster) : one_turn(1, contestant_roster)
     duel_counter += 1
   end
 end
 
-def output_endgame_message
-  if @player_data[0][:score] > @player_data[1][:score]
-    return "Player 1 wins with score #{@player_data[0][:score]}"
-  else
-    return "Player 2 wins with score #{@player_data[1][:score]}"
-  end
-end
+
+
+# #game.rb
+# def reset_game
+#   @first_number = 1
+#   @second_number = 2
+#   @operator = '+'
+#   @player_data.each { |player|
+#     player[:hp] = 3
+#     player[:score] = 0 
+#   }
+# end
+
+
+# def output_startgame_message
+#   puts "welcome"
+#   print "enter player one name: " 
+#   @player_data[0][:name] = gets.chomp
+#   print "enter player two name: " 
+#   @player_data[1][:name] = gets.chomp
+# end
+
+# def output_endgame_message
+#   if @player_data[0][:score] > @player_data[1][:score]
+#     return "Player 1 wins with score #{@player_data[0][:score]}"
+#   else
+#     return "Player 2 wins with score #{@player_data[1][:score]}"
+#   end
+# end
 
 
 
 
-def output_startgame_message
-  puts "welcome"
-  print "enter player one name: " 
-  @player_data[0][:name] = gets.chomp
-  print "enter player two name: " 
-  @player_data[1][:name] = gets.chomp
-end
-
-def one_turn(player_number)
-  print "#{@player_data[player_number][:name]} turn: "
-  randomize_operator
-  randomize_value
-  puts generate_question
-  user_reply = prompt_player_for_answer
-  #player loses health when they get answer wrong
-  @player_data[player_number][:hp] -= 1 unless verify_answer(user_reply)
-  #player increments score by 1 if right
-  @player_data[player_number][:score] += 1 if verify_answer(user_reply)
-  #if good result prints in green otherwise red
-  puts verify_answer(user_reply) ? string_status_message(player_number).green : string_status_message(player_number).red
-end
-
-
-def one_war
-  playflag = true
-  first_game = true
-  while playflag == true
-    reset_game
-    puts output_startgame_message if first_game == true
-    one_battle
-    puts output_endgame_message
-    print "Do you wish to play the game again? (y/n): "
-    user_input = gets.chomp.downcase
-    playflag = (user_input == 'y') ? true : false
-    first_game = false
-  end
-end
+# def one_war
+#   playflag = true
+#   first_game = true
+#   while playflag == true
+#     reset_game
+#     puts output_startgame_message if first_game == true
+#     one_battle
+#     puts output_endgame_message
+#     print "Do you wish to play the game again? (y/n): "
+#     user_input = gets.chomp.downcase
+#     playflag = (user_input == 'y') ? true : false
+#     first_game = false
+#   end
+# end
 
