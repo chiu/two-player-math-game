@@ -3,23 +3,17 @@ require 'colorize'
 
 def one_turn(contestant_number, contestant_roster)
  current_contestant = contestant_roster[contestant_number]
- current_contestant.say_hi
  randomize_operator
  randomize_value
  puts generate_question
  user_reply = prompt_player_for_answer
- #current_contestant.print_info
-
   # # #player loses health when they get answer wrong
   current_contestant.lose_life unless verify_answer(user_reply)
   # # #player increments score by 1 if right
   current_contestant.gain_score if verify_answer(user_reply)
   # # #if good result prints in green otherwise red
-  #current_contestant.print_info
   puts verify_answer(user_reply) ? current_contestant.player_status.green : current_contestant.player_status.red
 end
-
-
 
 def populate_game
   @first_number = 1
@@ -28,7 +22,6 @@ def populate_game
   contestant_1 = Contestant.new(0, 'Alpha guy', 3, 0)
   contestant_2 = Contestant.new(1, 'Beta guy', 3, 0)
   @player_data = [contestant_1, contestant_2]
-  #puts @player_data.inspect
   return @player_data 
 end
 
@@ -52,7 +45,6 @@ def randomize_value
 end
 
 def generate_question
-  #puts "game version 1 test start"
   "What does #{@first_number} #{@operator.to_s} #{@second_number} equal?"
 end
 
@@ -72,7 +64,6 @@ def verify_answer(user_answer)
   when '/'
     correct_answer = @first_number / @second_number
   end
-  #print "correct answer is #{correct_answer}; "
   if correct_answer == user_answer
     #puts "so you got it right!"
     return true
@@ -81,8 +72,6 @@ def verify_answer(user_answer)
     return false
   end
 end
-
-
 
 def game_continue?(contestant_roster)
   contestant_roster[0].hp != 0 && contestant_roster[1].hp !=0 
@@ -96,9 +85,6 @@ def one_battle(contestant_roster)
   end
 end
 
-
-
-#game.rb
 def reset_game(contestant_roster)
   @first_number = 1
   @second_number = 2
@@ -108,11 +94,8 @@ def reset_game(contestant_roster)
   }
 end
 
-
 def output_startgame_message(contestant_roster)
   puts "welcome"
-  
-  #puts contestant_roster[0].inspect
   print "enter player one name: " 
   contestant_roster[0].name = gets.chomp
   print "enter player two name: " 
@@ -126,9 +109,6 @@ def output_endgame_message(contestant_roster)
     return "Player 2 wins with score #{contestant_roster[1].score}"
   end
 end
-
-
-
 
 def one_war(contestant_roster)
   playflag = true
