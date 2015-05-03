@@ -21,14 +21,14 @@ puts "Hello."
 # puts some_guy = Contestant.new(4,"jack", 3, 0)
 # some_guy.print_info
 
-contestant_roster = populate_game
+
 #puts contestant_roster
 # puts "presenting first guy"
 # puts contestant_a = contestant_roster[0]
 # puts "presenting second guy "
 # puts contestant_b = contestant_roster[1]
 
+contestant_roster = populate_game
 
-
-#one_turn(0, contestant_roster)
-one_battle(contestant_roster)
+#one_battle(contestant_roster)
+one_war(contestant_roster)

@@ -12,7 +12,7 @@ def one_turn(contestant_number, contestant_roster)
  user_reply = prompt_player_for_answer
 
  #current_contestant.print_info
-    
+
   # # #player loses health when they get answer wrong
   current_contestant.lose_life unless verify_answer(user_reply)
   # # #player increments score by 1 if right
@@ -87,11 +87,6 @@ end
 
 
 
-
-# def string_status_message(player_number)
-#   "#{@player_data[player_number][:name]} | HP: #{@player_data[player_number][:hp]} | score: #{@player_data[player_number][:score]}"
-# end
-
 def game_continue?(contestant_roster)
   contestant_roster[0].hp != 0 && contestant_roster[1].hp !=0 
 end
@@ -106,49 +101,50 @@ end
 
 
 
-# #game.rb
-# def reset_game
-#   @first_number = 1
-#   @second_number = 2
-#   @operator = '+'
-#   @player_data.each { |player|
-#     player[:hp] = 3
-#     player[:score] = 0 
-#   }
-# end
+#game.rb
+def reset_game(contestant_roster)
+  @first_number = 1
+  @second_number = 2
+  @operator = '+'
+  contestant_roster.each { |contestant|
+    contestant.reset
+  }
+end
 
 
-# def output_startgame_message
-#   puts "welcome"
-#   print "enter player one name: " 
-#   @player_data[0][:name] = gets.chomp
-#   print "enter player two name: " 
-#   @player_data[1][:name] = gets.chomp
-# end
+def output_startgame_message(contestant_roster)
+  puts "welcome"
+  
+  #puts contestant_roster[0].inspect
+  print "enter player one name: " 
+  contestant_roster[0].name = gets.chomp
+  print "enter player two name: " 
+  contestant_roster[1].name = gets.chomp
+end
 
-# def output_endgame_message
-#   if @player_data[0][:score] > @player_data[1][:score]
-#     return "Player 1 wins with score #{@player_data[0][:score]}"
-#   else
-#     return "Player 2 wins with score #{@player_data[1][:score]}"
-#   end
-# end
+def output_endgame_message(contestant_roster)
+  if contestant_roster[0].score > contestant_roster[1].score
+    return "Player 1 wins with score #{contestant_roster[0].score}"
+  else
+    return "Player 2 wins with score #{contestant_roster[1].score}"
+  end
+end
 
 
 
 
-# def one_war
-#   playflag = true
-#   first_game = true
-#   while playflag == true
-#     reset_game
-#     puts output_startgame_message if first_game == true
-#     one_battle
-#     puts output_endgame_message
-#     print "Do you wish to play the game again? (y/n): "
-#     user_input = gets.chomp.downcase
-#     playflag = (user_input == 'y') ? true : false
-#     first_game = false
-#   end
-# end
+def one_war(contestant_roster)
+  playflag = true
+  first_game = true
+  while playflag == true
+   reset_game(contestant_roster)
+   puts output_startgame_message(contestant_roster) if first_game == true
+   one_battle(contestant_roster)
+   puts output_endgame_message(contestant_roster)
+   print "Do you wish to play the game again? (y/n): "
+   user_input = gets.chomp.downcase
+   playflag = (user_input == 'y') ? true : false
+   first_game = false
+ end
+end
 

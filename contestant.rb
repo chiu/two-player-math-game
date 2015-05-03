@@ -12,11 +12,25 @@ class Contestant
   
   public    # This method can be called from outside the class.
 
+  def reset
+    @hp = 3
+    @score = 0
+
+  end
 
   def hp
     @hp
   end
 
+  def name=(name)
+    @name = name
+  end
+
+  def score
+    @score
+  end
+
+  
   def gain_score
     #@score = @score + 1
     @score += 1
