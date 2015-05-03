@@ -2,15 +2,12 @@ require_relative 'contestant'
 require 'colorize'
 
 def one_turn(contestant_number, contestant_roster)
-
  current_contestant = contestant_roster[contestant_number]
- #puts current_contestant.inspect
  current_contestant.say_hi
  randomize_operator
  randomize_value
  puts generate_question
  user_reply = prompt_player_for_answer
-
  #current_contestant.print_info
 
   # # #player loses health when they get answer wrong
